@@ -1,15 +1,49 @@
-# DifferentiableChemistry
-This is the repository for the code of my master thesis "Deep learning for computational chemistry with differentiable background knowledge" and upcoming research paper
+# ChemLogic
 
-## Project Structure
-The code is structured in a couple of scripts each representing some part of the implementation. 
-All of the code is stored in `src` folder, and it might be converted to a package.
-Model implementations are stored in `model_template` folders with `models.py` as the entrypoint.
-Chemical and subgraph rules are stored in `knowledge_base` folder. 
-Dataset files are stored in `datasets` folder, while they are loaded and parsed in `datasets.py`.
-The training pipeline as well as other details are in `pipeline.py`.
+ChemLogic is a neurosymbolic framework that integrates relational logic syntax with graph neural networks (GNNs) to model chemical knowledge. It is designed for interpretable molecular property prediction, combining symbolic reasoning with differentiable learning. ChemLogic was entirely built on the [PyNeuraLogic](https://github.com/LukasZahradnik/PyNeuraLogic) framework.
 
-To run all experiments from scratch, you can do it with `run_experiments.py`. If you want to see the code for running one set of parameters, see `main_notebook.py`, and the code which was used to analyze the results is in `analyze_results.py`. However, both of these might be messy and they are not intended for wider usage.
+## 🧬 Introduction
 
+ChemLogic enables binary classification for molecular property prediction tasks on chemistry datasets, such as mutagenicity and toxicity prediction. It supports explainable AI by encoding functional groups and molecular subgraph patterns into logical rules, which are then integrated into GNN architectures. The weights of these rules provide interpretable insights into the model's reasoning process.
 
-*Have in mind that the code is just a working draft, it will be updated to address possible issues, as well as to document it properly.*
+## ✨ Features
+
+- Supports well-known GNN architectures from the literature.
+- Encodes chemical knowledge using relational logic syntax.
+- Integrates functional groups and molecular subgraph patterns into a learnable knowledge base.
+- Enables explainable and interpretable predictions.
+- Designed for binary classification tasks with future support for regression and more.
+
+## 📦 Installation
+
+ChemLogic will be available via PyPI. Once published, you can install it using:
+
+```bash
+pip install chemlogic
+```
+
+## 📂 Project structure
+
+The project consists off of 3 main modules:
+
+- `datasets` - contain the datasets encoded in relational manner. Includes data from `TUD` and `TDC` datasets, as well as a converter from custom SMILES datasets.
+- `models` - contains the GNN architectures.
+- `knowledge_base` - contains the functional groups and subgraph patters.
+
+## 🚀 Usage
+
+Basic example of training a GNN on the MUTAG dataset can be found in `notebooks/run_example`.
+
+## 🧩 Dependencies
+
+ChemLogic requires Python 3.11 and Java >=1.8. For visualization `graphviz` is required.
+
+All dependencies are listed in `pyproject.toml`.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see CONTRIBUTING.md for guidelines on how to get started.
+
+## 📄 License
+
+This project is licensed under the MIT License.
