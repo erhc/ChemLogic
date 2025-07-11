@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Caches and temporary files
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# PDM-related files
+.pdm-python
+.pdm-build
+pdm.lock
+
+# Virtual environments
+.venv/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Python version file
+.python-version
+
+# Notebook garbage
+**/target
