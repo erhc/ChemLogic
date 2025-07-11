@@ -1,6 +1,6 @@
 [project]
 name = "ChemLogic"
-version = "0.1.0"
+version = "0.1.1"
 description = "ChemLogic is a neurosymbolic framework that integrates relational logic syntax with various graph neural network (GNN) architectures to model chemical knowledge. It encodes functional groups and molecular subgraph patterns into a differentiable, explainable architecture, enabling the construction of interpretable and modular GNN-based models for chemical reasoning."
 authors = [
     {name = "Kai Hodžić", email = "hodzic.e.k@outlook.com"},
