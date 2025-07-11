@@ -16,10 +16,10 @@ ChemLogic enables binary classification for molecular property prediction tasks 
 
 ## 📦 Installation
 
-ChemLogic will be available via PyPI. Once published, you can install it using:
+ChemLogic is available via PyPI. You can install it using:
 
 ```bash
-pip install chemlogic
+pip install ChemLogic
 ```
 
 ## 📂 Project structure
