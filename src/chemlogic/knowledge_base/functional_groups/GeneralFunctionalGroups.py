@@ -2,6 +2,7 @@ from neuralogic.core import R, V
 
 from chemlogic.knowledge_base.KnowledgeBase import KnowledgeBase
 
+
 class GeneralFunctionalGroups(KnowledgeBase):
     required_keys = [
         "layer_name",

@@ -1,3 +1,5 @@
+from enum import Enum
+
 import numpy as np
 from neuralogic.core import R, Settings, V
 from neuralogic.nn import get_evaluator
@@ -11,7 +13,7 @@ from chemlogic.knowledge_base.chemrules import get_chem_rules
 from chemlogic.knowledge_base.subgraphs import get_subgraphs
 from chemlogic.models.models import get_model
 from chemlogic.utils.ChemTemplate import ChemTemplate
-from enum import Enum
+
 
 class ArchitectureType(Enum):
     BARE = "bare"
@@ -23,7 +25,10 @@ class ArchitectureType(Enum):
         try:
             return ArchitectureType[name]
         except KeyError:
-            raise ValueError(f"Undefined architecture type: {name}. Valid types are: {[e.name for e in ArchitectureType]}")
+            raise ValueError(
+                f"Undefined architecture type: {name}. Valid types are: {[e.name for e in ArchitectureType]}"
+            ) from KeyError
+
 
 class Pipeline:
     def __init__(
@@ -41,6 +46,8 @@ class Pipeline:
         examples=None,
         queries=None,
         funnel=False,
+        smiles_list: list[str] = None,
+        labels: list[int] = None,
     ):
         """
         Initialize the test setup by configuring the dataset and model along with optional chemical rules and subgraphs.
@@ -56,9 +63,23 @@ class Pipeline:
         :param chem_rules: Tuple containing chemical rule configurations.
         :param architecture: The architecture to use for the model. - default: ArchitectureType.BARE ["bare", "CCE", "CCD"]
         :param funnel: create an informational funnel in the knowledge base. - default: False
+        :param smiles_list: A list of smiles strings to build the dataset with.
+        :param labels: A list of integer labels to build the dataset with.
         :return: A tuple containing the template and dataset.
         """
-        dataset = get_dataset(dataset_name, param_size, examples, queries)
+
+        if bool(smiles_list) != bool(labels):
+            raise ValueError(
+                "If building a dataset from SMILES, make sure to provide both `smiles_list` and `labels` params."
+            )
+
+        if smiles_list:
+            dataset_args = {"smiles_list": smiles_list, "labels": labels}
+        else:
+            dataset_args = {"examples": examples, "queries": queries}
+
+        dataset = get_dataset(dataset_name, param_size, **dataset_args)
+
         template = ChemTemplate()
 
         if architecture == ArchitectureType.BARE:

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from chemlogic.utils.Pipeline import Pipeline, ArchitectureType
+from chemlogic.utils.Pipeline import ArchitectureType, Pipeline
 
 
 class TestPipeline(unittest.TestCase):
