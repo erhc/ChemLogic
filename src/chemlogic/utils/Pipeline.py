@@ -46,6 +46,8 @@ class Pipeline:
         examples=None,
         queries=None,
         funnel=False,
+        smiles_list: list[str] = None,
+        labels: list[int] = None,
     ):
         """
         Initialize the test setup by configuring the dataset and model along with optional chemical rules and subgraphs.
@@ -61,9 +63,23 @@ class Pipeline:
         :param chem_rules: Tuple containing chemical rule configurations.
         :param architecture: The architecture to use for the model. - default: ArchitectureType.BARE ["bare", "CCE", "CCD"]
         :param funnel: create an informational funnel in the knowledge base. - default: False
+        :param smiles_list: A list of smiles strings to build the dataset with.
+        :param labels: A list of integer labels to build the dataset with.
         :return: A tuple containing the template and dataset.
         """
-        dataset = get_dataset(dataset_name, param_size, examples, queries)
+
+        if bool(smiles_list) != bool(labels):
+            raise ValueError(
+                "If building a dataset from SMILES, make sure to provide both `smiles_list` and `labels` params."
+            )
+
+        if smiles_list:
+            dataset_args = {"smiles_list": smiles_list, "labels": labels}
+        else:
+            dataset_args = {"examples": examples, "queries": queries}
+
+        dataset = get_dataset(dataset_name, param_size, **dataset_args)
+
         template = ChemTemplate()
 
         if architecture == ArchitectureType.BARE:

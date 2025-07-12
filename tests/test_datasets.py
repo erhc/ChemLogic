@@ -14,6 +14,7 @@ from chemlogic.datasets import (
     PTCMM,
     CustomDataset,
     Dataset,
+    SmilesDataset,
     get_available_datasets,
     get_dataset,
     get_dataset_len,
@@ -217,6 +218,15 @@ class TestDatasetClasses(unittest.TestCase):
     def test_ptcmm(self):
         PTCMM(param_size=1)
 
+    def test_smiles_dataset(self):
+        dataset = SmilesDataset(
+            smiles_list=["O"],
+            labels=[1],
+            param_size=1,
+            dataset_name="test",
+        )
+        dataset.clear()
+
 
 class TestDatasetLoader(unittest.TestCase):
     def test_get_available_datasets(self):
@@ -411,3 +421,18 @@ class TestDatasetsBuildable(unittest.TestCase):
         dataset.add_rules([R.predict <= R.get(dataset.node_embed)(V.X)])
         evaluator = get_evaluator(dataset, Settings())
         evaluator.build_dataset(dataset.data)
+
+    def test_smiles_dataset_buildable(self):
+        dataset = SmilesDataset(
+            smiles_list=["O"],
+            labels=[1],
+            param_size=1,
+            dataset_name="test",
+        )
+        assert "h" in dataset.atom_types
+        assert "o" in dataset.atom_types
+        assert "b_1" in dataset.bond_types
+        dataset.add_rules([R.predict <= R.get(dataset.node_embed)(V.X)])
+        evaluator = get_evaluator(dataset, Settings())
+        evaluator.build_dataset(dataset.data)
+        dataset.clear()
