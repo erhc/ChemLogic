@@ -1,6 +1,6 @@
 import mlflow
 
-from chemlogic.utils.Pipeline import Pipeline, ArchitectureType
+from chemlogic.utils.Pipeline import ArchitectureType, Pipeline
 
 
 # TODO: do a better job in refactoring here

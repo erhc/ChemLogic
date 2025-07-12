@@ -11,6 +11,7 @@ from chemlogic.knowledge_base.functional_groups.RelaxedFunctionalGroups import (
 )
 from chemlogic.knowledge_base.functional_groups.SulfurGroups import SulfurGroups
 
+
 def get_chem_rules(
     layer_name: str,
     node_embed: str,

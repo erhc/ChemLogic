@@ -1,3 +1,5 @@
+from enum import Enum
+
 import numpy as np
 from neuralogic.core import R, Settings, V
 from neuralogic.nn import get_evaluator
@@ -11,7 +13,7 @@ from chemlogic.knowledge_base.chemrules import get_chem_rules
 from chemlogic.knowledge_base.subgraphs import get_subgraphs
 from chemlogic.models.models import get_model
 from chemlogic.utils.ChemTemplate import ChemTemplate
-from enum import Enum
+
 
 class ArchitectureType(Enum):
     BARE = "bare"
@@ -23,7 +25,10 @@ class ArchitectureType(Enum):
         try:
             return ArchitectureType[name]
         except KeyError:
-            raise ValueError(f"Undefined architecture type: {name}. Valid types are: {[e.name for e in ArchitectureType]}")
+            raise ValueError(
+                f"Undefined architecture type: {name}. Valid types are: {[e.name for e in ArchitectureType]}"
+            ) from KeyError
+
 
 class Pipeline:
     def __init__(
